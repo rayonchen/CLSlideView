@@ -43,6 +43,17 @@
  @param offsetY ContentoffsetY
  */
 - (void)endDraggingWithContentoffsetY:(NSInteger)offsetY;
+
+/**
+ 将请求数据接口暴露出来, 如果数据结构复杂使用此方法(s数据model化)
+ 成功一定要把 self.viewmodel.messageArray赋值, 失败就发送failureSubject
+ 
+ @param url url
+ @param paramDic param
+ */
+- (void)loadDataWithUrl:(NSString *)url paramDic:(NSDictionary *)paramDic;
+
+
 @end
 
 @interface SlideTableView : UIView

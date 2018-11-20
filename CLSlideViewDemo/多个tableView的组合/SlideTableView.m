@@ -268,12 +268,13 @@ static const NSInteger spaceNum = 10;// 按钮间距
     
     self.viewModel.pathUrl = kStringWithFormat(self.pathUrl, self.urlJoinArray_head[self.viewModel.index]);
     if (self.paramStyle == SlideTableParamOnlyHasRows) {
-        [self.viewModel.requestCommand execute:nil];
-        
+        [self loadDataWithParamDic:nil];
+
     }else if (self.paramStyle == SlideTableParamHasPageAndRows){
         // 头部刷新，参数page 归为初始值
         [self changePageNumWithIndex:self.viewModel.index type:(SlideTablePageZeroType)];
-        [self.viewModel.requestCommand execute:self.paramentArry[self.viewModel.index]];
+        [self loadDataWithParamDic:self.paramentArry[self.viewModel.index]];
+//        [self.viewModel.requestCommand execute:self.paramentArry[self.viewModel.index]];
         
     }
 
@@ -431,14 +432,15 @@ static const NSInteger spaceNum = 10;// 按钮间距
                 
                 self.viewModel.pathUrl = kStringWithFormat(self.pathUrl, self.urlJoinArray_head[self.viewModel.index]);
                 if (self.paramStyle == SlideTableParamOnlyHasRows) {
-                    [self.viewModel.requestCommand execute:nil];
-                    
+                    [self loadDataWithParamDic:nil];
+
                 }else if (self.paramStyle == SlideTableParamHasPageAndRows){
                     // 头部刷新，参数page 归为初始值
                     [self changePageNumWithIndex:self.viewModel.index type:(SlideTablePageZeroType)];
 
 //                    self.viewModel.pathUrl = self.pathUrl;
-                    [self.viewModel.requestCommand execute:self.paramentArry[self.viewModel.index]];
+                    [self loadDataWithParamDic:self.paramentArry[self.viewModel.index]];
+//                    [self.viewModel.requestCommand execute:self.paramentArry[self.viewModel.index]];
                     
                 }
                 
@@ -472,14 +474,15 @@ static const NSInteger spaceNum = 10;// 按钮间距
                     
                     self.viewModel.pathUrl = kStringWithFormat(self.pathUrl, self.urlJoinArray_Foot[self.viewModel.index]);
                     if (self.paramStyle == SlideTableParamOnlyHasRows) {
-                        [self.viewModel.requestCommand execute:nil];
-                        
+                        [self loadDataWithParamDic:nil];
+
                     }else if (self.paramStyle == SlideTableParamHasPageAndRows){
                         // 尾部刷新，参数page +1
                         [self changePageNumWithIndex:self.viewModel.index type:(SlideTablePageAddType)];
                         
 //                        self.viewModel.pathUrl = self.pathUrl;
-                        [self.viewModel.requestCommand execute:self.paramentArry[self.viewModel.index]];
+                        [self loadDataWithParamDic:self.paramentArry[self.viewModel.index]];
+//                        [self.viewModel.requestCommand execute:self.paramentArry[self.viewModel.index]];
                         
                     }
                     
@@ -504,6 +507,22 @@ static const NSInteger spaceNum = 10;// 按钮间距
     NSDictionary *dic = @{NSFontAttributeName:font};
     CGRect rect = [str boundingRectWithSize:CGSizeMake(MAXFLOAT, 0.0) options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin) attributes:dic context:nil];
     return rect.size.width;
+}
+
+
+#pragma mark ---- 请求数据
+- (void)loadDataWithParamDic:(NSDictionary *)paramDic
+{
+    if ((_modelClass == nil) || [_modelClass isEqual:[NSNull null]]) {
+        // model类为空, 启用代理,在外部进行网络请求
+        if ([self.delegate respondsToSelector:@selector(loadDataWithUrl:paramDic:)]) {
+            [self.delegate loadDataWithUrl:self.pathUrl paramDic:paramDic];
+        }
+        
+    }else{
+        [self.viewModel.requestCommand execute:paramDic];
+        
+    }
 }
 
 #pragma mark ---- Lazyload
@@ -614,13 +633,14 @@ static const NSInteger spaceNum = 10;// 按钮间距
             
             self.viewModel.pathUrl = kStringWithFormat(self.pathUrl, self.urlJoinArray_head[self.viewModel.index]);
             if (self.paramStyle == SlideTableParamOnlyHasRows) {
-                [self.viewModel.requestCommand execute:nil];
-                
+                [self loadDataWithParamDic:nil];
+
             }else if (self.paramStyle == SlideTableParamHasPageAndRows){
                 // 头部刷新，参数page 归为初始值
                 [self changePageNumWithIndex:self.viewModel.index type:(SlideTablePageZeroType)];
-                [self.viewModel.requestCommand execute:self.paramentArry[self.viewModel.index]];
-                
+//                [self.viewModel.requestCommand execute:self.paramentArry[self.viewModel.index]];
+                [self loadDataWithParamDic:self.paramentArry[self.viewModel.index]];
+
             }
             
         }];
