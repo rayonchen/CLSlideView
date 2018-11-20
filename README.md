@@ -3,7 +3,7 @@
 
 ### 正文
 原谅我小小的标题党一下，最终创建的UI效果如图，
-展示的cell只有一种，适合文章之类的新闻展示，如果需要开发类似网易、凤凰新闻UII，请使用此控件封装自定义创建 https://github.com/rayonCheng/CLSlidePageView_Simple
+展示的cell只有一种，适合文章之类的新闻展示，如果需要开发类似网易、凤凰新闻UII，请使用此控件封装自定义创建 https://github.com/rayonchen/CLSlidePageView_Simple
 ![img](http://img2.ph.126.net/xTKDn0j1VE9oo0wEe93zgA==/6632420165004634604.png)
 
 - 头部区域会自动适配，逻辑与主流新闻APP相似，UI效果我会努力升级
